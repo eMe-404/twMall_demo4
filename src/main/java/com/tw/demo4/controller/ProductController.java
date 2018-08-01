@@ -17,8 +17,11 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll() {
-        List<Product> products = productService.getAll();
+    public ResponseEntity<List<Product>> getAll(@RequestParam(name = "sort", defaultValue = "all") String sort,
+                                                @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+                                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+
+        List<Product> products = productService.getAll(pageNum, pageSize, sort);
         return ResponseEntity.ok(products);
     }
 
