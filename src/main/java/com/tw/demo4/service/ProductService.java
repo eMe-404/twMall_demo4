@@ -51,4 +51,8 @@ public class ProductService {
         }
         return false;
     }
+
+    public List<Product> finaAll(String brand, String category, Integer minPrice, Integer maxPrice, int pageNum, int pageSize, String order) {
+        return productRepository.findAll(brand, category, minPrice, maxPrice, pageNum, pageSize, order);
+    }
 }

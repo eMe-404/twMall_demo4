@@ -17,14 +17,16 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll(@RequestParam(name = "sort", defaultValue = "all") String sort,
-                                                @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
-                                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
-
-        List<Product> products = productService.getAll(pageNum, pageSize, sort);
+    public ResponseEntity<List<Product>> finaAll(@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                 @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                                 @RequestParam(value = "order", required = false, defaultValue = "ALL") String order,
+                                 @RequestParam(value = "brand", required = false) String brand,
+                                 @RequestParam(value = "category", required = false) String category,
+                                 @RequestParam(value = "minPrice", required = false, defaultValue = "0") Integer minPrice,
+                                 @RequestParam(value = "maxPrice", required = false, defaultValue = "0") Integer maxPrice) {
+        List<Product> products = productService.finaAll(brand, category, minPrice, maxPrice, pageNum, pageSize, order);
         return ResponseEntity.ok(products);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Product> get(@PathVariable int id) {
         Optional<Product> product = productService.get(id);
