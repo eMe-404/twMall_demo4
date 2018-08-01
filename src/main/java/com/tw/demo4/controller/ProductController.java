@@ -4,10 +4,7 @@ import com.tw.demo4.entity.Product;
 import com.tw.demo4.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +29,14 @@ public class ProductController {
             return ResponseEntity.ok(product.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity add(@RequestBody Product product) {
+        Optional<Product> addedProduct = Optional.ofNullable(productService.add(product));
+        if (addedProduct.isPresent()) {
+            return ResponseEntity.status(201).build();
+        }
+        return ResponseEntity.status(500).build();
     }
 }
