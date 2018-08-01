@@ -48,4 +48,13 @@ public class ProductController {
         }
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable int id) {
+        boolean isDeleted = productService.delete(id);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
