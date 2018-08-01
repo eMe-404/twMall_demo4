@@ -25,4 +25,13 @@ public class ProductService {
     public Product add(Product product) {
         return productRepository.save(product);
     }
+
+    public Product update(Product product, int id) {
+        Optional<Product> toUpdateProduct = productRepository.findById(id);
+        if (toUpdateProduct.isPresent()) {
+            product.setId(id);
+            return productRepository.save(product);
+        }
+        return null;
+    }
 }

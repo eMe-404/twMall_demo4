@@ -39,4 +39,13 @@ public class ProductController {
         }
         return ResponseEntity.status(500).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody Product product, @PathVariable int id) {
+        Product updatedProduct = productService.update(product, id);
+        if (updatedProduct == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
